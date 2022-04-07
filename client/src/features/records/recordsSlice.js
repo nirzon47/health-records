@@ -1,3 +1,5 @@
+// State management for getting and entering records
+
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import recordsService from './recordsService'
 
@@ -16,6 +18,26 @@ export const createRecord = createAsyncThunk(
 		try {
 			const token = thunkAPI.getState().auth.user.token
 			return await recordsService.createRecord(recordData, token)
+		} catch (error) {
+			const message =
+				(error.response &&
+					error.response.data &&
+					error.response.data.message) ||
+				error.message ||
+				error.toString()
+			return thunkAPI.rejectWithValue(message)
+		}
+	}
+)
+
+// Edit records
+export const editRecord = createAsyncThunk(
+	'records/edit',
+	async (recordData, thunkAPI) => {
+		try {
+			const token = thunkAPI.getState().auth.user.token
+			const recordID = thunkAPI.getState().records.records[0]._id
+			return await recordsService.editRecord(recordData, token, recordID)
 		} catch (error) {
 			const message =
 				(error.response &&
@@ -80,6 +102,21 @@ export const recordsSlice = createSlice({
 				state.records = action.payload
 			})
 			.addCase(getRecord.rejected, (state, action) => {
+				state.isLoading = false
+				state.isError = true
+				state.message = action.payload
+			})
+
+			// Extra reducers for editRecord
+			.addCase(editRecord.pending, (state) => {
+				state.isLoading = true
+			})
+			.addCase(editRecord.fulfilled, (state, action) => {
+				state.isLoading = false
+				state.isSuccess = true
+				state.records[0] = action.payload
+			})
+			.addCase(editRecord.rejected, (state, action) => {
 				state.isLoading = false
 				state.isError = true
 				state.message = action.payload

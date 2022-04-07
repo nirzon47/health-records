@@ -1,3 +1,5 @@
+// Backend requests
+
 import axios from 'axios'
 
 const API_URL = '/api/records/'
@@ -11,6 +13,19 @@ const createRecord = async (recordData, token) => {
 	}
 
 	const response = await axios.post(API_URL, recordData, config)
+
+	return response.data
+}
+
+// Edit record
+const editRecord = async (recordData, token, recordID) => {
+	const config = {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	}
+
+	const response = await axios.put(API_URL + recordID, recordData, config)
 
 	return response.data
 }
@@ -31,6 +46,7 @@ const getRecord = async (token) => {
 const recordsService = {
 	createRecord,
 	getRecord,
+	editRecord,
 }
 
 export default recordsService

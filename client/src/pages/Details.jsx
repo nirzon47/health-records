@@ -1,3 +1,5 @@
+// Form for entering user details
+
 import { useEffect, useState } from 'react'
 import { FaPenAlt } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'

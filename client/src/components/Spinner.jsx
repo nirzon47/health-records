@@ -1,3 +1,5 @@
+// Spinner when a state is loading
+
 function Spinner() {
 	return (
 		<div className='loadingSpinnerContainer'>

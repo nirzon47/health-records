@@ -1,6 +1,9 @@
+// Form for editing existing records
+
 import { useState } from 'react'
 import { FaPenAlt } from 'react-icons/fa'
 import { useDispatch } from 'react-redux'
+import { editRecord } from '../features/records/recordsSlice'
 
 function EditDetails() {
 	const dispatch = useDispatch()
@@ -23,16 +26,16 @@ function EditDetails() {
 
 	const onSubmit = (e) => {
 		e.preventDefault()
-		setformData('')
+		dispatch(editRecord(formData))
 	}
 
 	return (
 		<>
 			<section className='heading'>
 				<h1>
-					<FaPenAlt /> Enter details
+					<FaPenAlt /> Edit details
 				</h1>
-				<p>Please enter your details</p>
+				<p>All fields are required</p>
 			</section>
 			<section className='form'>
 				<form onSubmit={onSubmit}>
@@ -43,7 +46,7 @@ function EditDetails() {
 							id='name'
 							name='name'
 							value={name}
-							placeholder='Enter your name'
+							placeholder='Enter your name *'
 							onChange={onChange}
 						/>
 					</div>
@@ -54,7 +57,7 @@ function EditDetails() {
 							id='height'
 							name='height'
 							value={height}
-							placeholder='Enter your height in centimetres'
+							placeholder='Enter your height in centimetres *'
 							onChange={onChange}
 						/>
 					</div>
@@ -65,7 +68,7 @@ function EditDetails() {
 							id='weight'
 							name='weight'
 							value={weight}
-							placeholder='Enter your weight in kilograms'
+							placeholder='Enter your weight in kilograms *'
 							onChange={onChange}
 						/>
 					</div>
@@ -76,7 +79,7 @@ function EditDetails() {
 							id='age'
 							name='age'
 							value={age}
-							placeholder='Enter your age'
+							placeholder='Enter your age *'
 							onChange={onChange}
 						/>
 					</div>

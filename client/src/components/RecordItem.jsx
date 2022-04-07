@@ -1,3 +1,5 @@
+// Component that goes through the record and print each value in the object
+
 function RecordItem({ records }) {
 	return (
 		<div className='records'>

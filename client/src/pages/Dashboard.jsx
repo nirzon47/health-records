@@ -1,14 +1,17 @@
+// The home page
+
 import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import Spinner from '../components/Spinner'
 import { getRecord, reset } from '../features/records/recordsSlice'
 import RecordItem from '../components/RecordItem'
+import Spinner from '../components/Spinner'
 
 function Dashboard() {
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 
+	// Getting the user information and the records from the state
 	const { user } = useSelector((state) => state.auth)
 	const { records, isLoading, isError, message } = useSelector(
 		(state) => state.records
@@ -19,6 +22,7 @@ function Dashboard() {
 			console.log(message)
 		}
 
+		// If there are no users, navigate them back to login page
 		if (!user) {
 			navigate('/login')
 		}

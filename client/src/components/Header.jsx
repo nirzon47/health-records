@@ -1,4 +1,15 @@
-import { FaSignInAlt, FaSignOutAlt, FaUser, FaPenAlt } from 'react-icons/fa'
+// Header component of the app
+
+// Icons for the tabs
+import {
+	FaSignInAlt,
+	FaSignOutAlt,
+	FaUser,
+	FaPenAlt,
+	FaCalculator,
+} from 'react-icons/fa'
+
+// Other imports
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { logout, reset } from '../features/auth/authSlice'
@@ -26,6 +37,12 @@ function Header() {
 					<>
 						{records.length > 0 ? (
 							<>
+								{/* If user exists and there is a record, show Check BMI, Edit Details and Logout tabs */}
+								<li>
+									<Link to='/bmi'>
+										<FaCalculator /> Check BMI
+									</Link>
+								</li>
 								<li>
 									<Link to='/edit-details'>
 										<FaPenAlt /> Edit Details
@@ -39,6 +56,7 @@ function Header() {
 							</>
 						) : (
 							<>
+								{/* If user exists and there is NO record, show Enter Details and Logout tabs */}
 								<li>
 									<Link to='/details'>
 										<FaPenAlt /> Enter Details
@@ -54,6 +72,7 @@ function Header() {
 					</>
 				) : (
 					<>
+						{/* If user does not exist, show log in and sign up tabs */}
 						<li>
 							<Link to='/login'>
 								<FaSignInAlt /> Login

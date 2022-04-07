@@ -1,3 +1,5 @@
+// Login page
+
 import { useState, useEffect } from 'react'
 import { FaSignInAlt } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
