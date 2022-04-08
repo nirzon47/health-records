@@ -2,10 +2,20 @@
 
 import { FaCalculator } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
+import { useNavigate, Link } from 'react-router-dom'
 
 function CheckBMI() {
-	const { bmi } = useSelector((state) => state.records.records[0])
-	const bmiPrecise = bmi.toPrecision(4)
+	const navigate = useNavigate()
+
+	const { records } = useSelector((state) => state.records)
+	const bmi = records[0] && records[0].bmi
+	let bmiPrecise
+
+	if (bmi) {
+		bmiPrecise = bmi.toPrecision(4)
+	} else {
+		navigate('/')
+	}
 	let feedback = ''
 
 	// Checks in which category the user falls in
@@ -29,10 +39,13 @@ function CheckBMI() {
 				</h1>
 				<p>Your BMI goes here</p>
 				<br />
-				<h2>{bmiPrecise}</h2>
+				<h2>{bmiPrecise !== 0 && bmiPrecise}</h2>
 				<br />
 				<p>You are {feedback}</p>
 			</section>
+			<p className='pnavigate'>
+				In case there are errors, go back to <Link to='/'>Dashboard</Link>
+			</p>
 		</>
 	)
 }

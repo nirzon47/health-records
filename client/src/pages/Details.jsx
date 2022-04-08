@@ -42,7 +42,7 @@ function Details() {
 		e.preventDefault()
 
 		dispatch(createRecord({ name, height, weight, age }))
-		setformData('')
+		navigate('/')
 	}
 
 	return (
